@@ -82,7 +82,7 @@ class MyWidget(QWidget):
             print(e)
 
         try:
-            cv2.imwrite("picture\\"+now_string+".png", self.current_frame)
+            cv2.imwrite("picture\\"+now_string+".png", self.current_frame_for_save)
         except Exception as e:
             print('촬영에 실패하였습니다.')
             print(e)
@@ -93,6 +93,9 @@ class MyWidget(QWidget):
 
         cam = cv2.cvtColor(cam, cv2.COLOR_BGR2RGB)
         self.current_frame = cam.copy()
+        frame_for_save = cv2.cvtColor(cam, cv2.COLOR_RGB2BGR)
+        self.current_frame_for_save = frame_for_save.copy()
+
         img = QImage(cam, cam.shape[1], cam.shape[0], QImage.Format_RGB888)
         pix = QPixmap.fromImage(img)
         self.frame.setPixmap(pix)
